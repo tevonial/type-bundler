@@ -1,0 +1,55 @@
+{
+  "name": "@tevonial/type-bundler",
+  "version": "1.0.0",
+  "description": "CLI tool to recursively extract and bundle typings from a specified location",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "prebuild": "rm -rf dist/*",
+    "build": "npx tsc",
+    "build:types": "node dist/index.js dist/types dist/index.d.ts",
+    "build:package": "node scripts/generate-package.js",
+    "postbuild": "cp -t dist/ README.md LICENSE && npm run build:package && npm run build:types",
+    "prepublishOnly": "npm run build",
+    "start": "node dist/cli.js",
+    "ci": "npm run build && npm run check-format",
+    "release": "npx changesets version && npx changesets publish",
+    "publish": "npm publish dist/ --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tevonial/type-bundler.git"
+  },
+  "keywords": [
+    "typescript",
+    "typing",
+    "type",
+    "dts",
+    "extractor",
+    "bundler"
+  ],
+  "author": "tevonial",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tevonial/type-bundler/issues"
+  },
+  "homepage": "https://github.com/tevonial/type-bundler#readme",
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@commander-js/extra-typings": "^14.0.0",
+    "@cucumber/cucumber": "^12.3.0",
+    "@types/node": "^24.10.1",
+    "dts-bundle-generator": "^9.5.1",
+    "prettier": "^3.7.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15"
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
+  }
+}
